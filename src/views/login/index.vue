@@ -1,4 +1,6 @@
-<script lang="ts" setup name="Login"></script>
+<script lang="ts" setup name="Login">
+// Login
+</script>
 <template>
   <div>login组件</div>
 </template>

@@ -1,4 +1,5 @@
-<script lang="ts" setup>
+<script lang="ts" setup name="app">
+// app
 // import request from "./utils/request";
 // const test = async () => {
 //   const res = await request.get("/home/index");

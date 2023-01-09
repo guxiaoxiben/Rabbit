@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), vueSetupExtend()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
