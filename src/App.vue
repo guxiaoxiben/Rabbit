@@ -7,6 +7,14 @@ const test = async () => {
 test();
 </script>
 
-<template>app</template>
+<template>
+  <div class="box">app</div>
+</template>
 
-<style scoped></style>
+<style lang="less" scoped>
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: @sucColor;
+}
+</style>
