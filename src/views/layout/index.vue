@@ -1,8 +1,11 @@
 <script lang="ts" setup name="Layout">
 // Layout
+import AppTopnav from "./components/app-topnav.vue";
+import AppHeader from "./components/app-header.vue";
 </script>
 <template>
-  <div>layout组件</div>
+  <AppTopnav></AppTopnav>
+  <AppHeader></AppHeader>
 </template>
 
 <style lang="less" scoped></style>
