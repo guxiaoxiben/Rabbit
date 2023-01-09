@@ -9,6 +9,12 @@ test();
 
 <template>
   <div class="box">app</div>
+  <p>lalala</p>
+  <ul>
+    <li>1</li>
+    <li>1</li>
+    <li>1</li>
+  </ul>
 </template>
 
 <style lang="less" scoped>
