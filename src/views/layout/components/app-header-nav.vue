@@ -10,15 +10,17 @@ category.getAllCategory();
       <RouterLink to="/">首页</RouterLink>
     </li>
     <li v-for="(item, index) in category.list" :key="index">
-      <RouterLink to="/">{{ item.name }}</RouterLink>
+      <RouterLink :to="item.id ? `/category/${item.id}` : '/'">{{
+        item.name
+      }}</RouterLink>
       <!-- 弹层 -->
       <div class="layer" v-if="item.children">
         <ul>
           <li v-for="sub in item.children" :key="sub.id">
-            <a href="#">
+            <RouterLink :to="`/category/sub/${sub.id}`">
               <img :src="sub.picture" alt="" />
               <p>{{ sub.name }}</p>
-            </a>
+            </RouterLink>
           </li>
         </ul>
       </div>
