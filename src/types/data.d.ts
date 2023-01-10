@@ -11,4 +11,5 @@ export type CategoryItem = {
     name: string
     picture: string
     children: CategoryItem[]
+    open: boolean
 }
