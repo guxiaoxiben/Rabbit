@@ -1,16 +1,25 @@
 <script lang="ts" setup name="AppHeaderSticky">
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import AppHeaderNav from "./app-header-nav.vue";
-const y = ref(0);
-const onScroll = () => {
-  y.value = document.documentElement.scrollTop;
-};
-onMounted(() => {
-  window.addEventListener("scroll", onScroll);
-});
-onBeforeUnmount(() => {
-  window.removeEventListener("scroll", onScroll);
-});
+// 自写方法
+// function useHMScrollY() {
+//   const y = ref(0);
+//   const onScroll = () => {
+//     y.value = document.documentElement.scrollTop;
+//   };
+//   onMounted(() => {
+//     window.addEventListener("scroll", onScroll);
+//   });
+//   onBeforeUnmount(() => {
+//     window.removeEventListener("scroll", onScroll);
+//   });
+//   return y;
+// }
+// const y = useHMScrollY();
+
+// 安装插件实现
+import { useWindowScroll } from "@vueuse/core";
+const { y } = useWindowScroll();
 </script>
 
 <template>
