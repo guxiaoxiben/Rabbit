@@ -10,10 +10,7 @@ const useHomeStore = defineStore('home', {
     },
     actions: {
         async getBannerList() {
-            // const res = await request.get<ApiRes<BannerItem[]>>('/home/banner')
-            const res = await request.get('/home/banner')
-            console.log(res)
-
+            const res = await request.get<ApiRes<BannerItem[]>>('/home/banner')
             this.bannerList = res.data.result
         },
     },
