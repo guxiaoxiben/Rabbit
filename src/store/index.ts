@@ -1,6 +1,8 @@
 import useCategoryStore from "./modules/category";
+import useHomeStore from './home'
 export default function useStore() {
     return {
-        category: useCategoryStore()
+        category: useCategoryStore(),
+        home: useHomeStore()
     }
 }
