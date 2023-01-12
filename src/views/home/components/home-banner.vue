@@ -6,7 +6,11 @@ home.getBannerList();
 <template>
   <div class="home-banner">
     <!-- 轮播图 -->
-    <Xtxcarousel :slides="home.bannerList"></Xtxcarousel>
+    <Xtxcarousel
+      :slides="home.bannerList"
+      autoPlay
+      :duration="3000"
+    ></Xtxcarousel>
   </div>
 </template>
 

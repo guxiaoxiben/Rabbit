@@ -1,18 +1,62 @@
 <script lang="ts" setup name="XtxCarousel">
 import { BannerItem } from "@/types/data";
-import { PropType } from "vue";
-import { ref } from "vue";
-defineProps({
+import { ref, PropType, onMounted, onUnmounted } from "vue";
+const props = defineProps({
   slides: {
     type: Array as PropType<BannerItem[]>,
     required: true,
   },
+  autoPlay: {
+    type: Boolean,
+    default: false,
+  },
+  duration: {
+    type: Number,
+    default: 3000,
+  },
 });
+
 const active = ref(0);
+const prev = () => {
+  if (active.value <= 0) {
+    active.value = props.slides.length - 1;
+  } else {
+    active.value--;
+  }
+};
+
+const next = () => {
+  if (active.value >= props.slides.length - 1) {
+    active.value = 0;
+  } else {
+    active.value++;
+  }
+};
+const play = () => {
+  // 如果没有自动播放
+  if (!props.autoPlay) return;
+  // 在ts中，使用定时器，window.setInterval
+  timer = window.setInterval(() => {
+    next();
+  }, props.duration);
+};
+const stop = () => {
+  clearInterval(timer);
+};
+
+let timer = -1;
+// 自动播放
+onMounted(() => {
+  play();
+});
+
+onUnmounted(() => {
+  stop();
+});
 </script>
 
 <template>
-  <div class="xtx-carousel">
+  <div class="xtx-carousel" @mouseenter="stop" @mouseleave="play">
     <ul class="carousel-body">
       <li
         class="carousel-item"
@@ -25,17 +69,18 @@ const active = ref(0);
         </RouterLink>
       </li>
     </ul>
-    <a href="javascript:;" class="carousel-btn prev"
+    <a href="javascript:;" class="carousel-btn prev" @click="prev"
       ><i class="iconfont icon-angle-left"></i
     ></a>
-    <a href="javascript:;" class="carousel-btn next"
+    <a href="javascript:;" class="carousel-btn next" @click="next"
       ><i class="iconfont icon-angle-right"></i
     ></a>
     <div class="carousel-indicator">
       <span
-        :class="{ active: active === index }"
         v-for="(item, index) in slides"
         :key="item.id"
+        :class="{ active: active === index }"
+        @mouseenter="active = index"
       ></span>
     </div>
   </div>
