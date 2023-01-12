@@ -8,10 +8,11 @@ const goods = computed(() => {
 });
 </script>
 <template>
-  <div class="home-category">
+  <div class="home-category" @mouseleave="categoryId = ''">
     <!-- 菜单 -->
     <ul class="menu">
       <li
+        :class="{ active: categoryId === item.id }"
         v-for="(item, index) in category.list"
         :key="index"
         @mouseenter="categoryId = item.id"
@@ -56,7 +57,8 @@ const goods = computed(() => {
       padding-left: 40px;
       height: 55px;
       line-height: 55px;
-      &:hover {
+      &:hover,
+      &.active {
         background: @xtxColor;
       }
       a {
