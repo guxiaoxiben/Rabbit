@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import HomePanel from "./home-panel.vue";
+import HomeSkeleton from "./home-skeleton.vue";
 import useStore from "@/store";
 import { useLazyData } from "@/utils/hooks";
 const { home } = useStore();
@@ -12,7 +13,7 @@ const target = useLazyData(() => {
     <HomePanel ref="target" title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
       <template #right><XtxMore path="/" /></template>
       <!-- 面板内容 -->
-      <ul class="goods-list">
+      <ul class="goods-list" v-if="home.newGoodList.length > 0">
         <li v-for="item in home.newGoodList" :key="item.id">
           <RouterLink to="/">
             <img v-lazy="item.picture" alt="" />
@@ -21,6 +22,8 @@ const target = useLazyData(() => {
           </RouterLink>
         </li>
       </ul>
+      <!-- 骨架 -->
+      <HomeSkeleton v-else></HomeSkeleton>
     </HomePanel>
   </div>
 </template>
