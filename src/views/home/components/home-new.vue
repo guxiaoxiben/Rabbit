@@ -1,16 +1,10 @@
 <script lang="ts" setup>
 import HomePanel from "./home-panel.vue";
 import useStore from "@/store";
-import { useIntersectionObserver } from "@vueuse/core";
-import { ref } from "vue";
+import { useLazyData } from "@/utils/hooks";
 const { home } = useStore();
-const target = ref(null);
-const { stop } = useIntersectionObserver(target, ([{ isIntersecting }]) => {
-  console.log(isIntersecting);
-  if (isIntersecting) {
-    home.getNewList();
-    stop();
-  }
+const target = useLazyData(() => {
+  home.getNewList();
 });
 </script>
 <template>
