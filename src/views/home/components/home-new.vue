@@ -1,18 +1,27 @@
 <script lang="ts" setup>
 import HomePanel from "./home-panel.vue";
 import useStore from "@/store";
+import { useIntersectionObserver } from "@vueuse/core";
+import { ref } from "vue";
 const { home } = useStore();
-home.getNewList();
+const target = ref(null);
+const { stop } = useIntersectionObserver(target, ([{ isIntersecting }]) => {
+  console.log(isIntersecting);
+  if (isIntersecting) {
+    home.getNewList();
+    stop();
+  }
+});
 </script>
 <template>
   <div class="home-new">
-    <HomePanel title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
+    <HomePanel ref="target" title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
       <template #right><XtxMore path="/" /></template>
       <!-- 面板内容 -->
       <ul class="goods-list">
         <li v-for="item in home.newGoodList" :key="item.id">
           <RouterLink to="/">
-            <img :src="item.picture" alt="" />
+            <img v-lazy="item.picture" alt="" />
             <p class="name ellipsis">{{ item.name }}</p>
             <p class="price">&yen;{{ item.price }}</p>
           </RouterLink>

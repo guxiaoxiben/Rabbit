@@ -25,6 +25,10 @@ const router = createRouter({
         {
             path: '/login',
             component: () => import('@/views/login/index.vue')
+        },
+        {
+            path: '/playround',
+            component: () => import('@/views/playround/index.vue')
         }
     ]
 })
