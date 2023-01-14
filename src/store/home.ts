@@ -1,4 +1,4 @@
-import { ApiRes, BannerItem, GoodItem, HotGoods, Brand, HomeProduct } from '@/types/data'
+import { ApiRes, BannerItem, GoodItem, HotGoods, Brand, HomeProduct, Special } from '@/types/data'
 import request from '@/utils/request'
 import { defineStore } from 'pinia'
 
@@ -15,6 +15,8 @@ const useHomeStore = defineStore('home', {
             brandList: [] as Brand[],
             // 商品推荐
             productList: [] as HomeProduct[],
+            // 最新专题
+            specialList: [] as Special[],
         }
     },
     actions: {
@@ -37,6 +39,10 @@ const useHomeStore = defineStore('home', {
         async getProductList() {
             const res = await request.get<ApiRes<HomeProduct[]>>('/home/goods')
             this.productList = res.data.result
+        },
+        async getSpecialList() {
+            const res = await request.get<ApiRes<Special[]>>('/home/special')
+            this.specialList = res.data.result
         },
     },
 })
