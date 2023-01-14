@@ -8,9 +8,6 @@ const routes = useRoute();
     <XtxBread separator="/">
       <XtxBreadItem to="/">去首页</XtxBreadItem>
       <XtxBreadItem>分类</XtxBreadItem>
-      <XtxBreadItem>分类</XtxBreadItem>
-      <XtxBreadItem>分类</XtxBreadItem>
-      <XtxBreadItem>分类</XtxBreadItem>
     </XtxBread>
   </div>
 </template>
