@@ -32,6 +32,7 @@ export type BannerItem = {
     imgUrl: string
     type: string
 }
+
 // 新鲜好物
 export type GoodItem = {
     desc: string
@@ -40,6 +41,7 @@ export type GoodItem = {
     picture: string
     price: string
 }
+
 // 人气推荐
 export type HotGoods = {
     id: string
@@ -47,6 +49,7 @@ export type HotGoods = {
     title: string
     alt: string
 }
+
 // 热门品牌
 export type Brand = {
     id: string
@@ -58,6 +61,7 @@ export type Brand = {
     desc: string
     place: string
 }
+
 // 商品推荐
 export type HomeProduct = {
     id: string
@@ -78,8 +82,8 @@ export type HomeProduct = {
         orderNum: number
     }[]
 }
-// 最新专题
 
+// 最新专题
 export type Special = {
     creator: string
     isDelete: number
@@ -95,4 +99,12 @@ export type Special = {
     collectNum: number
     viewNum: number
     replyNum: number
+}
+
+// 顶级分类类型
+export type TopCategory = {
+    id: string
+    name: string
+    picture: string
+    children: CategoryItem[]
 }
