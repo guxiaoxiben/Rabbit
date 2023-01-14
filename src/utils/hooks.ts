@@ -17,6 +17,10 @@ export function useLazyData(apiFn: () => void) {
                 stop()
                 apiFn()
             }
+        },
+        {
+            // 进入可视区域 就加载数据
+            threshold: 0
         }
     )
     return target
