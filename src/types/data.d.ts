@@ -47,3 +47,34 @@ export type HotGoods = {
     title: string
     alt: string
 }
+// 热门品牌
+export type Brand = {
+    id: string
+    name: string
+    nameEn: string
+    logo: string
+    picture: string
+    type?: any
+    desc: string
+    place: string
+}
+// 商品推荐
+export type HomeProduct = {
+    id: string
+    name: string
+    picture: string
+    saleInfo: string
+    children: {
+        id: string
+        name: string
+    }[]
+    goods: {
+        id: string
+        name: string
+        desc: string
+        price: string
+        picture: string
+        discount?: any
+        orderNum: number
+    }[]
+}
