@@ -13,17 +13,19 @@ const target = useLazyData(() => {
     <HomePanel ref="target" title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
       <template #right><XtxMore path="/" /></template>
       <!-- 面板内容 -->
-      <ul class="goods-list" v-if="home.newGoodList.length > 0">
-        <li v-for="item in home.newGoodList" :key="item.id">
-          <RouterLink to="/">
-            <img v-lazy="item.picture" alt="" />
-            <p class="name ellipsis">{{ item.name }}</p>
-            <p class="price">&yen;{{ item.price }}</p>
-          </RouterLink>
-        </li>
-      </ul>
-      <!-- 骨架 -->
-      <HomeSkeleton v-else></HomeSkeleton>
+      <Transition name="fade">
+        <ul class="goods-list" v-if="home.newGoodList.length > 0">
+          <li v-for="item in home.newGoodList" :key="item.id">
+            <RouterLink to="/">
+              <img v-lazy="item.picture" alt="" />
+              <p class="name ellipsis">{{ item.name }}</p>
+              <p class="price">&yen;{{ item.price }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+        <!-- 骨架 -->
+        <HomeSkeleton v-else></HomeSkeleton>
+      </Transition>
     </HomePanel>
   </div>
 </template>
