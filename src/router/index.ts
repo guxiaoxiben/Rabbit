@@ -3,6 +3,12 @@ import Layout from '@/views/layout/index.vue'
 import Home from '@/views/home/index.vue'
 const router = createRouter({
     history: createWebHashHistory(),
+    // 滚动到页面顶部
+    scrollBehavior: () => {
+        return {
+            top: 0,
+        }
+    },
     routes: [
         {
             path: '/',
