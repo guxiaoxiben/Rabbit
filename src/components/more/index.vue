@@ -1,5 +1,5 @@
 <script lang="ts" setup name="XtxMore">
-import { defineProps } from "vue";
+// import { defineProps } from "vue";
 defineProps({
   path: {
     type: String,

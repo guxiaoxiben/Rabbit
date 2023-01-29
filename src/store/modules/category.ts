@@ -2,6 +2,7 @@ import request from '@/utils/request'
 import { defineStore } from 'pinia'
 import { ApiRes, CategoryItem } from '@/types/data'
 import { topCategory } from '../constants'
+import { TopCategory } from '@/types/data'
 const defaultCategory = topCategory.map((item) => {
     return {
         name: item,
@@ -11,6 +12,7 @@ const useCategoryStore = defineStore('category', {
     state() {
         return {
             list: defaultCategory as CategoryItem[],
+            topCategory: {} as TopCategory,
         }
     },
     getters: {},
@@ -33,6 +35,14 @@ const useCategoryStore = defineStore('category', {
         hide(id: string): void {
             const category = this.list.find((item) => item.id === id)
             category!.open = false
+        },
+        async getTopCategory(id: string) {
+            const res = await request.get<ApiRes<TopCategory>>('/category', {
+                params: {
+                    id,
+                },
+            })
+            this.topCategory = res.data.result
         },
     }
 })
