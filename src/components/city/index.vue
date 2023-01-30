@@ -22,7 +22,7 @@ const changeResult = ref({
 const active = ref(false);
 const target = ref(null);
 const cityList = ref<AreaList[]>([]); //城市数据
-const cacheList = ref<AreaList[]>([]);
+const cacheList = ref<AreaList[]>([]); // 缓存
 // 点击取反
 const toggle = () => {
   active.value = !active.value;
@@ -77,9 +77,9 @@ watch(active, (val) => {
       >
       <span class="placeholder" v-else>{{
         changeResult.provinceName +
-        "/" +
+        " " +
         changeResult.cityName +
-        "/" +
+        " " +
         changeResult.countyName
       }}</span>
 
