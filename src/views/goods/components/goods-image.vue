@@ -1,14 +1,35 @@
 <script lang="ts" setup name="GoodsImage">
-import { ref } from "vue";
+import { propsToAttrMap } from "@vue/shared";
+import { onMounted, onUnmounted, ref } from "vue";
 
-defineProps<{
+const props = defineProps<{
   images: string[];
 }>();
 // 默认高亮的下标
-const active = ref(0);
+let active = ref(0);
+let timer = -1;
+const play = () => {
+  window.clearInterval(timer);
+  timer = window.setInterval(() => {
+    if (active.value === props.images.length - 1) {
+      active.value = 0;
+    } else {
+      active.value++;
+    }
+  }, 3000);
+};
+const stop = () => {
+  window.clearInterval(timer);
+};
+onMounted(() => {
+  play();
+});
+onUnmounted(() => {
+  stop();
+});
 </script>
 <template>
-  <div class="goods-image">
+  <div class="goods-image" @mouseenter="stop" @mouseleave="play">
     <div class="middle">
       <img :src="images[active]" alt="" />
     </div>
