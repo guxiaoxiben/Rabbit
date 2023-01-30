@@ -37,6 +37,7 @@ const getCityList = async () => {
     "https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json"
   );
   cityList.value = res.data;
+  cacheList.value = res.data;
 };
 getCityList();
 // 点击选择
@@ -62,6 +63,11 @@ const selectCity = (city: AreaList) => {
   }
 };
 //   关闭
+watch(active, (val) => {
+  if (!val) {
+    cityList.value = cacheList.value;
+  }
+});
 </script>
 <template>
   <div class="xtx-city" ref="target">
