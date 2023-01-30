@@ -23,7 +23,7 @@ const { topCategory } = storeToRefs(category);
   <div class="top-category">
     <div class="container">
       <XtxBread>
-        <XtxBreadItem to="/">去首页</XtxBreadItem>
+        <XtxBreadItem to="/">首页</XtxBreadItem>
         <XtxBreadItem>{{ category.topCategory.name }}</XtxBreadItem>
       </XtxBread>
       <!-- 轮播图 -->
