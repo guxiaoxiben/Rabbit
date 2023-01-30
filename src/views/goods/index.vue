@@ -4,6 +4,8 @@ import { storeToRefs } from "pinia";
 import { watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import GoodsImage from "./components/goods-image.vue";
+import GoodsSales from "./components/goods-sales.vue";
+import GoodsName from "./components/goods-name.vue";
 const { goods } = useStore();
 const route = useRoute();
 watchEffect(() => {
@@ -35,10 +37,12 @@ const { info } = storeToRefs(goods);
           <div class="media">
             <!-- 图片 -->
             <GoodsImage :images="info.mainPictures"></GoodsImage>
+            <GoodsSales></GoodsSales>
             <!-- 信息详情 -->
           </div>
           <div class="spec">
             <!-- 右侧 -->
+            <GoodsName :goods="info" />
           </div>
         </div>
         <!-- 商品详情 -->

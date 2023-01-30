@@ -3,6 +3,7 @@ import XtxCarousel from '@/components/carousel/index.vue'
 import XtxMore from '@/components/more/index.vue'
 import XtxBread from '@/components/bread/index.vue'
 import XtxBreadItem from '@/components/bread/Item.vue'
+import XtxCity from '@/components/city/index.vue'
 declare module 'vue' {
     export interface GlobalComponents {
         XtxSkeleton: typeof XtxSkeleton
@@ -10,6 +11,7 @@ declare module 'vue' {
         XtxMore: typeof XtxMore
         XtxBread: typeof XtxBread
         XtxBreadItem: typeof XtxBreadItem
+        XtxCity: typeof XtxCity
     }
 }
 export { }

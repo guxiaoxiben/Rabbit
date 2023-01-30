@@ -1,5 +1,5 @@
 import { ApiRes } from '@/types/data'
-import { GoodsInfo } from '@/types/data'
+import { GoodsInfo } from '@/types/goods'
 import request from '@/utils/request'
 import { defineStore } from 'pinia'
 
