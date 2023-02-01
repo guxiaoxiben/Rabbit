@@ -1,4 +1,14 @@
 <script lang="ts" setup name="XtxCity">
+// 选择的城市结果类型
+export type CityResult = {
+  provinceCode: string;
+  provinceName: string;
+  cityCode: string;
+  cityName: string;
+  countyCode: string;
+  countyName: string;
+};
+
 import { ref, watch } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import axios from "axios";
@@ -19,6 +29,9 @@ const changeResult = ref({
   countyCode: "",
   countyName: "", // 区
 });
+defineProps<{
+  userAddress?: string;
+}>();
 const active = ref(false);
 const target = ref(null);
 const cityList = ref<AreaList[]>([]); //城市数据
@@ -27,6 +40,11 @@ const cacheList = ref<AreaList[]>([]); // 缓存
 const toggle = () => {
   active.value = !active.value;
 };
+
+const emit = defineEmits<{
+  (e: "changeCity", value: CityResult): void;
+}>();
+
 // 点击外层关闭弹窗
 onClickOutside(target, () => {
   active.value = false;
@@ -60,6 +78,8 @@ const selectCity = (city: AreaList) => {
     changeResult.value.countyCode = city.code;
     // 关闭弹窗
     active.value = false;
+    // 子传父
+    emit("changeCity", changeResult.value);
   }
 };
 //   关闭
@@ -72,18 +92,9 @@ watch(active, (val) => {
 <template>
   <div class="xtx-city" ref="target">
     <div class="select" @click="toggle" :class="{ active: active }">
-      <span class="placeholder" v-if="changeResult.provinceName === ''"
-        >请选择配送地址</span
-      >
-      <span class="placeholder" v-else>{{
-        changeResult.provinceName +
-        " " +
-        changeResult.cityName +
-        " " +
-        changeResult.countyName
-      }}</span>
-
-      <span class="value"></span>
+      <span class="value" v-if="userAddress">{{ userAddress }}</span>
+      <span class="placeholder" v-else>请选择配送地址</span>
+      <!-- <span class="value"></span> -->
       <i class="iconfont icon-angle-down"></i>
     </div>
     <div class="option" v-show="active">
