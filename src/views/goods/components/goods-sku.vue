@@ -1,6 +1,7 @@
 <script setup lang="ts" name="GoodsSku">
 import { GoodsInfo, Spec, SpecValue } from "@/types/goods";
 import bwPowerSet from "@/utils/power-set";
+import path from "path";
 
 const props = defineProps<{
   goods: GoodsInfo;
@@ -10,6 +11,9 @@ const props = defineProps<{
  * 选中排他
  */
 const changeSelected = (item: Spec, sub: SpecValue) => {
+  // 禁用的时候不允许选中
+  if (sub.disabled) return;
+
   if (sub.selected) {
     // 如果已经是选中了，取消选中
     sub.selected = false;
@@ -25,7 +29,9 @@ const changeSelected = (item: Spec, sub: SpecValue) => {
  * 获取路径字典
  */
 const getPathMap = () => {
-  const pathMap: any = {};
+  const pathMap: {
+    [key: string]: string[];
+  } = {};
   // 1. 过滤掉库存为0的sku
   const skus = props.goods.skus.filter((item) => item.inventory > 0);
   // console.log(skus)
@@ -51,8 +57,27 @@ const getPathMap = () => {
 
   return pathMap;
 };
-
-console.log(getPathMap());
+/**
+ * 更新按钮的禁用状态
+ */
+const updateDisabledStatus = () => {
+  props.goods.specs.forEach((item) => {
+    item.values.forEach((sub) => {
+      if (sub.name in pathMap) {
+        // 当前规格的名字在pathMap存在，不禁用
+        sub.disabled = false;
+      } else {
+        // 当前规格在pathMap找不到，禁用
+        sub.disabled = true;
+      }
+    });
+  });
+};
+// 获取路径字典
+const pathMap = getPathMap();
+console.log(pathMap);
+// 更新禁用状态
+updateDisabledStatus();
 </script>
 <template>
   <div class="goods-sku">
@@ -65,12 +90,12 @@ console.log(getPathMap());
             :src="sub.picture"
             alt=""
             :title="sub.name"
-            :class="{ selected: sub.selected }"
+            :class="{ selected: sub.selected, disabled: sub.disabled }"
             @click="changeSelected(item, sub)"
           />
           <span
             v-else
-            :class="{ selected: sub.selected }"
+            :class="{ selected: sub.selected, disabled: sub.disabled }"
             @click="changeSelected(item, sub)"
             >{{ sub.name }}</span
           >

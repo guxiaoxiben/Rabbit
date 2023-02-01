@@ -19,7 +19,8 @@ export type SpecValue = {
     desc: string
     name: string
     picture: string
-    selected: boolean
+    selected: boolean // 选中控制
+    disabled: boolean // 禁用控制
 }
 
 /**
