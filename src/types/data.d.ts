@@ -1,4 +1,6 @@
-// 所有的接口的通用类型
+/**
+ * 所有的接口的通用类型
+ */
 export interface ApiRes<T> {
     code: string
     msg: string
@@ -15,7 +17,9 @@ export type CategoryGoods = {
     orderNum: any
 }
 
-// 单个分类的类型
+/**
+ * 单个分类的类型
+ */
 export type CategoryItem = {
     id: string
     name: string
@@ -25,7 +29,9 @@ export type CategoryItem = {
     open: boolean
 }
 
-// 轮播图类型
+/**
+ * 轮播图类型
+ */
 export type BannerItem = {
     hrefUrl: string
     id: string
@@ -33,7 +39,9 @@ export type BannerItem = {
     type: string
 }
 
-// 新鲜好物
+/**
+ * 新鲜好物
+ */
 export type GoodItem = {
     desc: string
     id: string
@@ -42,7 +50,9 @@ export type GoodItem = {
     price: string
 }
 
-// 人气推荐
+/**
+ * 人气推荐
+ */
 export type HotGoods = {
     id: string
     picture: string
@@ -50,7 +60,9 @@ export type HotGoods = {
     alt: string
 }
 
-// 热门品牌
+/**
+ * 热门品牌
+ */
 export type Brand = {
     id: string
     name: string
@@ -62,7 +74,9 @@ export type Brand = {
     place: string
 }
 
-// 商品推荐
+/**
+ * 商品推荐
+ */
 export type HomeProduct = {
     id: string
     name: string
@@ -83,7 +97,9 @@ export type HomeProduct = {
     }[]
 }
 
-// 最新专题
+/**
+ * 最新专题
+ */
 export type Special = {
     creator: string
     isDelete: number
@@ -101,7 +117,9 @@ export type Special = {
     replyNum: number
 }
 
-// 顶级分类类型
+/**
+ * 顶级分类类型
+ */
 export type TopCategory = {
     id: string
     name: string
@@ -109,7 +127,9 @@ export type TopCategory = {
     children: CategoryItem[]
 }
 
-// 二级分类的数据类型
+/**
+ * 二级分类的数据类型
+ */
 export type SaleProperty = {
     id: string
     name: string

@@ -1,8 +1,14 @@
 <script setup lang="ts" name="GoodsSku">
 import { GoodsInfo, Spec, SpecValue } from "@/types/goods";
-defineProps<{
+import bwPowerSet from "@/utils/power-set";
+
+const props = defineProps<{
   goods: GoodsInfo;
 }>();
+
+/**
+ * 选中排他
+ */
 const changeSelected = (item: Spec, sub: SpecValue) => {
   if (sub.selected) {
     // 如果已经是选中了，取消选中
@@ -14,6 +20,39 @@ const changeSelected = (item: Spec, sub: SpecValue) => {
     sub.selected = true;
   }
 };
+
+/**
+ * 获取路径字典
+ */
+const getPathMap = () => {
+  const pathMap: any = {};
+  // 1. 过滤掉库存为0的sku
+  const skus = props.goods.skus.filter((item) => item.inventory > 0);
+  // console.log(skus)
+  // 2. 遍历有效的sku,获取sku的幂集
+  skus.forEach((item) => {
+    const arr = item.specs.map((sub) => sub.valueName);
+    // console.log(arr)
+    // 3. 调用powerSet获取幂集
+    const powerSet = bwPowerSet(arr);
+    // 4. 把这些powerSet合并到一个路径字典中
+    powerSet.forEach((sub) => {
+      const key = sub.join("★");
+      // 5. 判断pathMap中有没有key
+      if (key in pathMap) {
+        // 6. 存在
+        pathMap[key].push(item.id);
+      } else {
+        // 7. 不存在
+        pathMap[key] = [item.id];
+      }
+    });
+  });
+
+  return pathMap;
+};
+
+console.log(getPathMap());
 </script>
 <template>
   <div class="goods-sku">
