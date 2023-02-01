@@ -6,6 +6,7 @@ import { useRoute } from "vue-router";
 import GoodsImage from "./components/goods-image.vue";
 import GoodsSales from "./components/goods-sales.vue";
 import GoodsName from "./components/goods-name.vue";
+import GoodsSku from "./components/goods-sku.vue";
 const { goods } = useStore();
 const route = useRoute();
 watchEffect(() => {
@@ -34,15 +35,19 @@ const { info } = storeToRefs(goods);
         </XtxBread>
         <!-- 商品信息 -->
         <div class="goods-info">
+          <!-- 左侧 -->
           <div class="media">
             <!-- 图片 -->
             <GoodsImage :images="info.mainPictures"></GoodsImage>
-            <GoodsSales></GoodsSales>
             <!-- 信息详情 -->
+            <GoodsSales></GoodsSales>
           </div>
+          <!-- 右侧 -->
           <div class="spec">
-            <!-- 右侧 -->
+            <!-- 商品名称 -->
             <GoodsName :goods="info" />
+            <!-- 规格组件 -->
+            <GoodsSku :goods="info"></GoodsSku>
           </div>
         </div>
         <!-- 商品详情 -->

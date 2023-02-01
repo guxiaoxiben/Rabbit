@@ -1,3 +1,17 @@
+// 商品的规格按钮
+export type SpecValue = {
+    desc: string
+    name: string
+    picture: string
+    selected: boolean
+}
+
+// 商品的规格类型
+export type Spec = {
+    id: string
+    name: string
+    values: SpecValue[]
+}
 
 // 商品模块的类型声明
 export type GoodsInfo = {
@@ -24,4 +38,6 @@ export type GoodsInfo = {
         id: string
         name: string
     }[]
+    specs: Spec[]
 }
+
