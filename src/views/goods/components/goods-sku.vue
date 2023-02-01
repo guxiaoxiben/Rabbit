@@ -23,6 +23,8 @@ const changeSelected = (item: Spec, sub: SpecValue) => {
     // 让sub选中
     sub.selected = true;
   }
+  const arr = getSelectedSpec();
+  console.log(arr);
 };
 
 /**
@@ -72,6 +74,17 @@ const updateDisabledStatus = () => {
       }
     });
   });
+};
+/**
+ * 获取选中的规格
+ */
+const getSelectedSpec = () => {
+  const arr: string[] = [];
+  props.goods.specs.forEach((item) => {
+    const temp = item.values.find((sub) => sub.selected);
+    arr.push(temp ? temp.name : "");
+  });
+  return arr;
 };
 // 获取路径字典
 const pathMap = getPathMap();
