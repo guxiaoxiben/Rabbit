@@ -1,3 +1,15 @@
+// sku的类型,最小库存单元 => 决定是否启用禁用
+export type Sku = {
+    id: string
+    inventory: number
+    oldPrice: string
+    price: string
+    skuCode: string
+    specs: {
+        name: string
+        valueName: string
+    }[]
+}
 // 商品的规格按钮
 export type SpecValue = {
     desc: string
@@ -39,5 +51,6 @@ export type GoodsInfo = {
         name: string
     }[]
     specs: Spec[]
+    skus: Sku[]
 }
 
