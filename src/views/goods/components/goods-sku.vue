@@ -23,8 +23,7 @@ const changeSelected = (item: Spec, sub: SpecValue) => {
     // 让sub选中
     sub.selected = true;
   }
-  const arr = getSelectedSpec();
-  console.log(arr);
+  updateDisabledStatus();
 };
 
 /**
@@ -63,14 +62,19 @@ const getPathMap = () => {
  * 更新按钮的禁用状态
  */
 const updateDisabledStatus = () => {
-  props.goods.specs.forEach((item) => {
-    item.values.forEach((sub) => {
-      if (sub.name in pathMap) {
-        // 当前规格的名字在pathMap存在，不禁用
-        sub.disabled = false;
+  const selectArr = getSelectedSpec();
+  props.goods.specs.forEach((spec, index) => {
+    spec.values.forEach((specValue) => {
+      const tempArr = [...selectArr]; //结构赋值
+      tempArr[index] = specValue.name;
+      // 得到组合后转成字符串的key
+      const key = tempArr.filter((item) => item).join("★");
+      if (key in pathMap) {
+        // 存在, 说明有库存, 不禁用
+        specValue.disabled = false;
       } else {
-        // 当前规格在pathMap找不到，禁用
-        sub.disabled = true;
+        // 不存在, 说明没有库存, 禁用
+        specValue.disabled = true;
       }
     });
   });
