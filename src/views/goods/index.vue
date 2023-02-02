@@ -12,6 +12,7 @@ const route = useRoute();
 watchEffect(() => {
   const id = route.params.id as string;
   if (route.fullPath !== `/goods/${id}`) return;
+  goods.resetGoodsInfo();
   goods.getGoodsInfo(id);
 });
 

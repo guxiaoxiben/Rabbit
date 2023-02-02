@@ -9,6 +9,9 @@ const useGoodStore = defineStore('goods', {
         info: {} as GoodsInfo,
     }),
     actions: {
+        /**
+         * 获取数据
+         */
         async getGoodsInfo(id: string) {
             const res = await request.get<ApiRes<GoodsInfo>>('/goods', {
                 params: {
@@ -17,6 +20,12 @@ const useGoodStore = defineStore('goods', {
             })
             this.info = res.data.result
         },
+        /**
+         * 重置数据
+         */
+        resetGoodsInfo() {
+            this.info = {} as GoodsInfo
+        }
     },
 })
 export default useGoodStore
