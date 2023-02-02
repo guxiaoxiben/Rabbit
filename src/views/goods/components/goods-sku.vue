@@ -7,7 +7,9 @@ const props = defineProps<{
   goods: GoodsInfo;
   skuId?: string;
 }>();
-
+const emit = defineEmits<{
+  (e: "changeSku", skuId: string): void;
+}>();
 /**
  * 选中排他
  */
@@ -25,6 +27,15 @@ const changeSelected = (item: Spec, sub: SpecValue) => {
     sub.selected = true;
   }
   updateDisabledStatus();
+  // 判断规格是否选中
+  const selecated = getSelectedSpec().filter((v) => v);
+  if (selecated.length === props.goods.specs.length) {
+    // 全部选中了
+    const key = selecated.join("★");
+    const sku = pathMap[key];
+    const skuId = sku[0];
+    emit("changeSku", skuId);
+  }
 };
 
 /**

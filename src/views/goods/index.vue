@@ -15,7 +15,14 @@ watchEffect(() => {
   goods.resetGoodsInfo();
   goods.getGoodsInfo(id);
 });
-
+const changeSku = (skuId: string) => {
+  const sku = info.value.skus.find((item) => item.id === skuId);
+  if (sku) {
+    info.value.inventory = sku.inventory;
+    info.value.price = sku.price;
+    info.value.oldPrice = sku.oldPrice;
+  }
+};
 const { info } = storeToRefs(goods);
 </script>
 <template>
@@ -48,7 +55,11 @@ const { info } = storeToRefs(goods);
             <!-- 商品名称 -->
             <GoodsName :goods="info" />
             <!-- 规格组件 -->
-            <GoodsSku :goods="info" skuId="1379052170296430594"></GoodsSku>
+            <GoodsSku
+              :goods="info"
+              skuId="1379052170296430594"
+              @changeSku="changeSku"
+            ></GoodsSku>
           </div>
         </div>
         <!-- 商品详情 -->
