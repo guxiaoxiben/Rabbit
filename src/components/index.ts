@@ -5,6 +5,8 @@ import XtxMore from './more/index.vue'
 import XtxBread from './Bread/index.vue'
 import XtxBreadItem from './Bread/Item.vue'
 import XtxCity from '@/components/city/index.vue'
+import XtxNumbox from '@/components/numbox/index.vue'
+import XtxButton from '@/components/button/index.vue'
 import { App } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 import defaultImg from '@/assets/images/200.png'
@@ -16,6 +18,10 @@ export default {
         app.component('XtxBread', XtxBread) // 轮播
         app.component('XtxBreadItem', XtxBreadItem) // 省市区组件
         app.component('XtxCity', XtxCity)
+        app.component('XtxNumbox', XtxNumbox)
+        app.component('XtxButton', XtxButton)
+
+
         // 自定义指令
         app.directive('lazy', {
             mounted(el: HTMLImageElement, { value }) {

@@ -1,7 +1,7 @@
 <script lang="ts" setup name="Goods">
 import useStore from "@/store";
 import { storeToRefs } from "pinia";
-import { watchEffect } from "vue";
+import { watchEffect, ref } from "vue";
 import { useRoute } from "vue-router";
 import GoodsImage from "./components/goods-image.vue";
 import GoodsSales from "./components/goods-sales.vue";
@@ -24,6 +24,11 @@ const changeSku = (skuId: string) => {
   }
 };
 const { info } = storeToRefs(goods);
+
+// 数量
+const modelValue = ref(1);
+const max = ref(10);
+const min = ref(1);
 </script>
 <template>
   <div class="xtx-goods-page">
@@ -60,6 +65,16 @@ const { info } = storeToRefs(goods);
               skuId="1379052170296430594"
               @changeSku="changeSku"
             ></GoodsSku>
+            <!-- 数量组件 -->
+            <XtxNumbox
+              v-model:modelValue="modelValue"
+              :min="min"
+              :max="max"
+            ></XtxNumbox>
+            <!-- 按钮 -->
+            <XtxButton type="primary" style="margin-top: 20px">
+              加入购物车
+            </XtxButton>
           </div>
         </div>
         <!-- 商品详情 -->
