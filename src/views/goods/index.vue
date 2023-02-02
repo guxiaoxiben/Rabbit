@@ -48,7 +48,7 @@ const { info } = storeToRefs(goods);
             <!-- 商品名称 -->
             <GoodsName :goods="info" />
             <!-- 规格组件 -->
-            <GoodsSku :goods="info"></GoodsSku>
+            <GoodsSku :goods="info" skuId="1379052170296430594"></GoodsSku>
           </div>
         </div>
         <!-- 商品详情 -->

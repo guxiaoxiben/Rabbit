@@ -5,6 +5,7 @@ import path from "path";
 
 const props = defineProps<{
   goods: GoodsInfo;
+  skuId?: string;
 }>();
 
 /**
@@ -90,10 +91,31 @@ const getSelectedSpec = () => {
   });
   return arr;
 };
-// 获取路径字典
+/**
+ * 初始化默认选中状态
+ */
+// 初始化时，设置默认选中效果
+const initSelectedSpec = () => {
+  const sku = props.goods.skus.find((item) => item.id === props.skuId);
+  // console.log(sku)
+  if (sku) {
+    // 如果根据父组件传递的skuId找到了对应的sku,设置默认选中
+    props.goods.specs.forEach((item, index) => {
+      // 获取到sku中选中的规格
+      const value = sku.specs[index].valueName;
+      console.log(value);
+      // 让value对应的规格选中
+      const spec = item.values.find((item) => item.name === value);
+      spec!.selected = true;
+    });
+  }
+};
+// 1.获取路径字典
 const pathMap = getPathMap();
 console.log(pathMap);
-// 更新禁用状态
+// 初始化默认
+initSelectedSpec();
+// 3.根据目前已选中的项 => 更新禁用状态
 updateDisabledStatus();
 </script>
 <template>
