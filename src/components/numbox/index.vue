@@ -33,8 +33,7 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance
 
 const handleChange = (e: Event) => {
   // 类型断言 让ts知道目前元素的类型
-  const element = e.target as HTMLInputElement
-  let value = +element.value
+  let value = Number(Number((e.target as HTMLInputElement).value).toFixed()) // 简易强制类型转换
   if (isNaN(value)) value = 1
   if (value <= props.min) value = props.min
   if (value >= props.max) value = props.max
