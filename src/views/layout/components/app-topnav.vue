@@ -2,6 +2,10 @@
 import useaStore from "@/store"
 
 const { user } = useaStore()
+/**退出 */
+const logout = () => {
+  user.logout()
+}
 </script>
 
 <template>
@@ -14,7 +18,7 @@ const { user } = useaStore()
               ><i class="iconfont icon-user"></i>{{ user.profile.nickname }}</a
             >
           </li>
-          <li><a href="javascript:;">退出登录</a></li>
+          <li><a href="javascript:;" @click="logout">退出登录</a></li>
         </template>
         <template v-else>
           <li><RouterLink to="/login">请先登录</RouterLink></li>

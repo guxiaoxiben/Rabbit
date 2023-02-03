@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ApiRes } from '@/types/data'
 import { Profile } from '@/types/user'
 import request from '@/utils/request'
+import Message from '@/components/message'
 
 const useUserStore = defineStore({
     id: 'user',
@@ -28,7 +29,12 @@ const useUserStore = defineStore({
             })
             this.profile = res.data.result
             localStorage.setItem("userInfo", JSON.stringify(res.data.result))
-
+        },
+        /**退出 */
+        logout() {
+            localStorage.removeItem('userInfo')
+            this.profile = {} as Profile
+            Message({ type: "success", text: "退出成功" })
         }
     }
 })
