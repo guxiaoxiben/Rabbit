@@ -1,17 +1,17 @@
 <script lang="ts" setup name="XtxBread">
 // 分隔符数据是位于Bread组件中 而对于分隔符数据的使用是在底层的组件中使用
 // provide/inject
-import { provide } from "vue";
+import { provide } from "vue"
 
 const props = defineProps({
   separator: {
     type: String,
     default: "",
   },
-});
+})
 
 // 为底层组件提供数据
-provide("separator", props.separator);
+provide("separator", props.separator)
 </script>
 <template>
   <div class="xtx-bread">

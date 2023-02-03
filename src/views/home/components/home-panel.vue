@@ -8,7 +8,7 @@ defineProps({
     type: String,
     default: "二级标题",
   },
-});
+})
 </script>
 <template>
   <div class="home-panel">

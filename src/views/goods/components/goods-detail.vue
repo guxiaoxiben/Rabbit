@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { GoodsInfo } from "@/types/goods";
+import type { GoodsInfo } from "@/types/goods"
 
 interface Props {
-  goods: GoodsInfo;
+  goods: GoodsInfo
 }
-defineProps<Props>();
+defineProps<Props>()
 </script>
 
 <template>

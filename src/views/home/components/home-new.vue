@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import HomePanel from "./home-panel.vue";
-import HomeSkeleton from "./home-skeleton.vue";
-import useStore from "@/store";
-import { useLazyData } from "@/utils/hooks";
-const { home } = useStore();
+import HomePanel from "./home-panel.vue"
+import HomeSkeleton from "./home-skeleton.vue"
+import useStore from "@/store"
+import { useLazyData } from "@/utils/hooks"
+const { home } = useStore()
 const target = useLazyData(() => {
-  home.getNewList();
-});
+  home.getNewList()
+})
 </script>
 <template>
   <div class="home-new">

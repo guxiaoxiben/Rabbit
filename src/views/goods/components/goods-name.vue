@@ -1,22 +1,22 @@
 <script lang="ts" setup name="GoodName">
-import { CityResult } from "@/components/city/index.vue";
-import { GoodsInfo } from "@/types/goods";
-import { ref } from "vue";
+import { CityResult } from "@/components/city/index.vue"
+import { GoodsInfo } from "@/types/goods"
+import { ref } from "vue"
 
 defineProps<{
-  goods: GoodsInfo;
-}>();
+  goods: GoodsInfo
+}>()
 
 // 真实场景下 应该是请求接口 从后端拿到用户之前设置的地址
-const userAddress = ref("北京省 北京市 西城区 猛踹瘸子那条好腿镇");
+const userAddress = ref("北京省 北京市 西城区 猛踹瘸子那条好腿镇")
 const changeCity = (changeResult: CityResult) => {
   userAddress.value =
     changeResult.provinceName +
     " " +
     changeResult.cityName +
     " " +
-    changeResult.countyName;
-};
+    changeResult.countyName
+}
 </script>
 <template>
   <p class="g-name">{{ goods.name }}</p>

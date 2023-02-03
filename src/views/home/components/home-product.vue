@@ -1,11 +1,11 @@
 <script lang="ts" setup name="HomeProduct">
-import HomePanel from "./home-panel.vue";
-import { useLazyData } from "@/utils/hooks";
-import useStore from "@/store";
-const { home } = useStore();
+import HomePanel from "./home-panel.vue"
+import { useLazyData } from "@/utils/hooks"
+import useStore from "@/store"
+const { home } = useStore()
 const target = useLazyData(() => {
-  home.getProductList();
-});
+  home.getProductList()
+})
 </script>
 <template>
   <div class="home-product" ref="target">

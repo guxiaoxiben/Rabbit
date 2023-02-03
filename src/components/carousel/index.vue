@@ -1,6 +1,6 @@
 <script lang="ts" setup name="XtxCarousel">
-import { BannerItem } from "@/types/data";
-import { ref, PropType, onMounted, onUnmounted } from "vue";
+import { BannerItem } from "@/types/data"
+import { ref, PropType, onMounted, onUnmounted } from "vue"
 const props = defineProps({
   slides: {
     type: Array as PropType<BannerItem[]>,
@@ -14,45 +14,45 @@ const props = defineProps({
     type: Number,
     default: 3000,
   },
-});
+})
 
-const active = ref(0);
+const active = ref(0)
 const prev = () => {
   if (active.value <= 0) {
-    active.value = props.slides.length - 1;
+    active.value = props.slides.length - 1
   } else {
-    active.value--;
+    active.value--
   }
-};
+}
 
 const next = () => {
   if (active.value >= props.slides.length - 1) {
-    active.value = 0;
+    active.value = 0
   } else {
-    active.value++;
+    active.value++
   }
-};
+}
 const play = () => {
   // 如果没有自动播放
-  if (!props.autoPlay) return;
+  if (!props.autoPlay) return
   // 在ts中，使用定时器，window.setInterval
   timer = window.setInterval(() => {
-    next();
-  }, props.duration);
-};
+    next()
+  }, props.duration)
+}
 const stop = () => {
-  clearInterval(timer);
-};
+  clearInterval(timer)
+}
 
-let timer = -1;
+let timer = -1
 // 自动播放
 onMounted(() => {
-  play();
-});
+  play()
+})
 
 onUnmounted(() => {
-  stop();
-});
+  stop()
+})
 </script>
 
 <template>

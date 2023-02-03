@@ -5,7 +5,7 @@ defineProps({
     type: String,
     default: "/",
   },
-});
+})
 </script>
 <template>
   <RouterLink :to="path" class="xtx-more">

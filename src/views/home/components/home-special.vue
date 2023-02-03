@@ -1,11 +1,11 @@
 <script lang="ts" setup name="HomeSpecial">
-import useStore from "@/store";
-import { useLazyData } from "@/utils/hooks";
-import HomePanel from "./home-panel.vue";
-const { home } = useStore();
+import useStore from "@/store"
+import { useLazyData } from "@/utils/hooks"
+import HomePanel from "./home-panel.vue"
+const { home } = useStore()
 const target = useLazyData(() => {
-  home.getSpecialList();
-});
+  home.getSpecialList()
+})
 </script>
 <template>
   <HomePanel title="最新专题" sub-title="" ref="target">

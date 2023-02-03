@@ -1,12 +1,12 @@
 <script lang="ts" setup name="GoodsItem">
-import { GoodItem } from "@/types/data";
-import { PropType } from "vue";
+import { GoodItem } from "@/types/data"
+import { PropType } from "vue"
 defineProps({
   goods: {
     type: Object as PropType<GoodItem>,
     default: () => ({}),
   },
-});
+})
 </script>
 
 <template>

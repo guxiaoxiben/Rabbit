@@ -1,46 +1,46 @@
 <script lang="ts" setup name="GoodsImage">
-import { propsToAttrMap } from "@vue/shared";
-import { computed, onMounted, onUnmounted, ref } from "vue";
-import { useMouseInElement } from "@vueuse/core";
+import { propsToAttrMap } from "@vue/shared"
+import { computed, onMounted, onUnmounted, ref } from "vue"
+import { useMouseInElement } from "@vueuse/core"
 const props = defineProps<{
-  images: string[];
-}>();
+  images: string[]
+}>()
 // 默认高亮的下标
-let active = ref(0);
-let timer = -1;
+let active = ref(0)
+let timer = -1
 const play = () => {
-  window.clearInterval(timer);
+  window.clearInterval(timer)
   timer = window.setInterval(() => {
     if (active.value === props.images.length - 1) {
-      active.value = 0;
+      active.value = 0
     } else {
-      active.value++;
+      active.value++
     }
-  }, 3000);
-};
+  }, 3000)
+}
 const stop = () => {
-  window.clearInterval(timer);
-};
+  window.clearInterval(timer)
+}
 onMounted(() => {
-  play();
-});
+  play()
+})
 onUnmounted(() => {
-  stop();
-});
-const target = ref(null);
-const { isOutside, elementX, elementY } = useMouseInElement(target);
+  stop()
+})
+const target = ref(null)
+const { isOutside, elementX, elementY } = useMouseInElement(target)
 const position = computed(() => {
-  let x = elementX.value - 100;
-  let y = elementY.value - 100;
-  if (x <= 0) x = 0;
-  if (x >= 200) x = 200;
-  if (y <= 0) y = 0;
-  if (y >= 200) y = 200;
+  let x = elementX.value - 100
+  let y = elementY.value - 100
+  if (x <= 0) x = 0
+  if (x >= 200) x = 200
+  if (y <= 0) y = 0
+  if (y >= 200) y = 200
   return {
     x,
     y,
-  };
-});
+  }
+})
 </script>
 <template>
   <div class="goods-image" @mouseenter="stop" @mouseleave="play">

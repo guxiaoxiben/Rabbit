@@ -1,6 +1,6 @@
 <script lang="ts" setup name="AppHeader">
 //
-import AppHeaderNavVue from "./app-header-nav.vue";
+import AppHeaderNavVue from "./app-header-nav.vue"
 </script>
 
 <template>

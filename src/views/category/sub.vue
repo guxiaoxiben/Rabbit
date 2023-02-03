@@ -1,17 +1,17 @@
 <script lang="ts" setup name="SubCategory">
-import useStore from "@/store";
-import { watchEffect } from "vue";
-import { useRoute } from "vue-router";
-import GoodsItem from "./components/goods-item.vue";
-const { category } = useStore();
-const route = useRoute();
+import useStore from "@/store"
+import { watchEffect } from "vue"
+import { useRoute } from "vue-router"
+import GoodsItem from "./components/goods-item.vue"
+const { category } = useStore()
+const route = useRoute()
 // category.getSubFilter(route.params.id as string);
 watchEffect(() => {
-  const id = route.params.id as string;
+  const id = route.params.id as string
   if (route.fullPath === `/category/sub/${id}`) {
-    category.getSubFilter(id);
+    category.getSubFilter(id)
   }
-});
+})
 </script>
 <template>
   <div class="sub-category">

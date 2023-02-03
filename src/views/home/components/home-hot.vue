@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import HomePanel from "./home-panel.vue";
-import HomeSkeleton from "./home-skeleton.vue";
-import useStore from "@/store";
-import { useLazyData } from "@/utils/hooks";
-const { home } = useStore();
+import HomePanel from "./home-panel.vue"
+import HomeSkeleton from "./home-skeleton.vue"
+import useStore from "@/store"
+import { useLazyData } from "@/utils/hooks"
+const { home } = useStore()
 const target = useLazyData(() => {
-  home.getHotList();
-});
+  home.getHotList()
+})
 </script>
 <template>
   <HomePanel ref="target" title="人气推荐" sub-title="人气爆款 不容错过">

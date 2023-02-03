@@ -1,31 +1,31 @@
 <script lang="ts" setup name="XtxNumbox">
 const props = withDefaults(
   defineProps<{
-    modelValue?: number;
-    max?: number;
-    min?: number;
+    modelValue?: number
+    max?: number
+    min?: number
   }>(),
   {
     modelValue: 1,
     min: 1,
     max: 10,
   }
-);
+)
 
 // 数据改变传给父组件
 const emit = defineEmits<{
   // (e: "update:modelValue", value: number): void;
-  (e: "update:modelValue", value: number): void;
-}>();
+  (e: "update:modelValue", value: number): void
+}>()
 const add = () => {
-  if (props.modelValue >= props.max) return;
-  emit("update:modelValue", props.modelValue + 1);
-};
+  if (props.modelValue >= props.max) return
+  emit("update:modelValue", props.modelValue + 1)
+}
 
 const sub = () => {
-  if (props.modelValue <= props.min) return;
-  emit("update:modelValue", props.modelValue - 1);
-};
+  if (props.modelValue <= props.min) return
+  emit("update:modelValue", props.modelValue - 1)
+}
 </script>
 <template>
   <div class="xtx-numbox">

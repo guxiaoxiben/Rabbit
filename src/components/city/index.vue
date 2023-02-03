@@ -1,25 +1,25 @@
 <script lang="ts" setup name="XtxCity">
 // 选择的城市结果类型
 export type CityResult = {
-  provinceCode: string;
-  provinceName: string;
-  cityCode: string;
-  cityName: string;
-  countyCode: string;
-  countyName: string;
-};
+  provinceCode: string
+  provinceName: string
+  cityCode: string
+  cityName: string
+  countyCode: string
+  countyName: string
+}
 
-import { ref, watch } from "vue";
-import { onClickOutside } from "@vueuse/core";
-import axios from "axios";
+import { ref, watch } from "vue"
+import { onClickOutside } from "@vueuse/core"
+import axios from "axios"
 
 // 城市列表类型
 type AreaList = {
-  code: string;
-  level: number;
-  name: string;
-  areaList: AreaList[];
-};
+  code: string
+  level: number
+  name: string
+  areaList: AreaList[]
+}
 // 存选择后城市数据
 const changeResult = ref({
   provinceCode: "",
@@ -28,66 +28,66 @@ const changeResult = ref({
   cityName: "", // 市
   countyCode: "",
   countyName: "", // 区
-});
+})
 defineProps<{
-  userAddress?: string;
-}>();
-const active = ref(false);
-const target = ref(null);
-const cityList = ref<AreaList[]>([]); //城市数据
-const cacheList = ref<AreaList[]>([]); // 缓存
+  userAddress?: string
+}>()
+const active = ref(false)
+const target = ref(null)
+const cityList = ref<AreaList[]>([]) //城市数据
+const cacheList = ref<AreaList[]>([]) // 缓存
 // 点击取反
 const toggle = () => {
-  active.value = !active.value;
-};
+  active.value = !active.value
+}
 
 const emit = defineEmits<{
-  (e: "changeCity", value: CityResult): void;
-}>();
+  (e: "changeCity", value: CityResult): void
+}>()
 
 // 点击外层关闭弹窗
 onClickOutside(target, () => {
-  active.value = false;
-});
+  active.value = false
+})
 // 获取 城市数据
 const getCityList = async () => {
   const res = await axios.get<AreaList[]>(
     "https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json"
-  );
-  cityList.value = res.data;
-  cacheList.value = res.data;
-};
-getCityList();
+  )
+  cityList.value = res.data
+  cacheList.value = res.data
+}
+getCityList()
 // 点击选择
 const selectCity = (city: AreaList) => {
   if (city.level === 0) {
     // 处理省
-    changeResult.value.provinceName = city.name;
-    changeResult.value.provinceCode = city.code;
-    cityList.value = city.areaList;
+    changeResult.value.provinceName = city.name
+    changeResult.value.provinceCode = city.code
+    cityList.value = city.areaList
   }
   if (city.level === 1) {
     // 处理市
-    changeResult.value.cityName = city.name;
-    changeResult.value.cityCode = city.code;
-    cityList.value = city.areaList;
+    changeResult.value.cityName = city.name
+    changeResult.value.cityCode = city.code
+    cityList.value = city.areaList
   }
   if (city.level === 2) {
     // 处理县（区）
-    changeResult.value.countyName = city.name;
-    changeResult.value.countyCode = city.code;
+    changeResult.value.countyName = city.name
+    changeResult.value.countyCode = city.code
     // 关闭弹窗
-    active.value = false;
+    active.value = false
     // 子传父
-    emit("changeCity", changeResult.value);
+    emit("changeCity", changeResult.value)
   }
-};
+}
 //   关闭
 watch(active, (val) => {
   if (!val) {
-    cityList.value = cacheList.value;
+    cityList.value = cacheList.value
   }
-});
+})
 </script>
 <template>
   <div class="xtx-city" ref="target">

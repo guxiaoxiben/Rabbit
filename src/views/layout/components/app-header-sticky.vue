@@ -1,6 +1,6 @@
 <script lang="ts" setup name="AppHeaderSticky">
-import { onBeforeUnmount, onMounted, ref } from "vue";
-import AppHeaderNav from "./app-header-nav.vue";
+import { onBeforeUnmount, onMounted, ref } from "vue"
+import AppHeaderNav from "./app-header-nav.vue"
 // 自写方法
 // function useHMScrollY() {
 //   const y = ref(0);
@@ -18,8 +18,8 @@ import AppHeaderNav from "./app-header-nav.vue";
 // const y = useHMScrollY();
 
 // 安装插件实现
-import { useWindowScroll } from "@vueuse/core";
-const { y } = useWindowScroll();
+import { useWindowScroll } from "@vueuse/core"
+const { y } = useWindowScroll()
 </script>
 
 <template>

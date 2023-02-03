@@ -1,13 +1,13 @@
 <script lang="ts" setup name="HomeBrand">
-import HomePanel from "./home-panel.vue";
-import useStore from "@/store";
-import { useLazyData } from "@/utils/hooks";
-import { ref } from "vue";
-const { home } = useStore();
-const index = ref(0);
+import HomePanel from "./home-panel.vue"
+import useStore from "@/store"
+import { useLazyData } from "@/utils/hooks"
+import { ref } from "vue"
+const { home } = useStore()
+const index = ref(0)
 const target = useLazyData(() => {
-  home.getBrandList();
-});
+  home.getBrandList()
+})
 </script>
 
 <template>

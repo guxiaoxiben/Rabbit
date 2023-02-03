@@ -1,12 +1,12 @@
 <script lang="ts" setup name="HomeCategory">
-import useStore from "@/store";
-import { ref, computed } from "vue";
+import useStore from "@/store"
+import { ref, computed } from "vue"
 // import XtxSkeleton from "@/components/skeleton/index.vue";
-const { category } = useStore();
-const categoryId = ref("");
+const { category } = useStore()
+const categoryId = ref("")
 const goods = computed(() => {
-  return category.list.find((item) => item.id === categoryId.value)?.goods;
-});
+  return category.list.find((item) => item.id === categoryId.value)?.goods
+})
 </script>
 <template>
   <div class="home-category" @mouseleave="categoryId = ''">

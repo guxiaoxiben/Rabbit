@@ -1,23 +1,23 @@
 <script lang="ts" setup name="TopCategory">
-import GoodsItem from "./components/goods-item.vue";
-import useStore from "@/store";
-import { storeToRefs } from "pinia";
-import { watch } from "vue";
-import { useRoute } from "vue-router";
-const { category, home } = useStore();
-const route = useRoute();
+import GoodsItem from "./components/goods-item.vue"
+import useStore from "@/store"
+import { storeToRefs } from "pinia"
+import { watch } from "vue"
+import { useRoute } from "vue-router"
+const { category, home } = useStore()
+const route = useRoute()
 watch(
   () => route.params.id,
   (value) => {
     if (route.fullPath === `/category/${value}`)
-      category.getTopCategory(value as string);
-    home.getBannerList();
+      category.getTopCategory(value as string)
+    home.getBannerList()
   },
   {
     immediate: true,
   }
-);
-const { topCategory } = storeToRefs(category);
+)
+const { topCategory } = storeToRefs(category)
 </script>
 <template>
   <div class="top-category">

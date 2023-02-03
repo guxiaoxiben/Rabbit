@@ -1,36 +1,36 @@
 <script lang="ts" setup name="Goods">
-import useStore from "@/store";
-import { storeToRefs } from "pinia";
-import { watchEffect, ref } from "vue";
-import { useRoute } from "vue-router";
-import GoodsImage from "./components/goods-image.vue";
-import GoodsSales from "./components/goods-sales.vue";
-import GoodsName from "./components/goods-name.vue";
-import GoodsSku from "./components/goods-sku.vue";
-import GoodsDetail from "./components/goods-detail.vue";
-import GoodsHot from "./components/goods-hot.vue";
-const { goods } = useStore();
-const route = useRoute();
+import useStore from "@/store"
+import { storeToRefs } from "pinia"
+import { watchEffect, ref } from "vue"
+import { useRoute } from "vue-router"
+import GoodsImage from "./components/goods-image.vue"
+import GoodsSales from "./components/goods-sales.vue"
+import GoodsName from "./components/goods-name.vue"
+import GoodsSku from "./components/goods-sku.vue"
+import GoodsDetail from "./components/goods-detail.vue"
+import GoodsHot from "./components/goods-hot.vue"
+const { goods } = useStore()
+const route = useRoute()
 watchEffect(() => {
-  const id = route.params.id as string;
-  if (route.fullPath !== `/goods/${id}`) return;
-  goods.resetGoodsInfo();
-  goods.getGoodsInfo(id);
-});
+  const id = route.params.id as string
+  if (route.fullPath !== `/goods/${id}`) return
+  goods.resetGoodsInfo()
+  goods.getGoodsInfo(id)
+})
 const changeSku = (skuId: string) => {
-  const sku = info.value.skus.find((item) => item.id === skuId);
+  const sku = info.value.skus.find((item) => item.id === skuId)
   if (sku) {
-    info.value.inventory = sku.inventory;
-    info.value.price = sku.price;
-    info.value.oldPrice = sku.oldPrice;
+    info.value.inventory = sku.inventory
+    info.value.price = sku.price
+    info.value.oldPrice = sku.oldPrice
   }
-};
-const { info } = storeToRefs(goods);
+}
+const { info } = storeToRefs(goods)
 
 // 数量
-const modelValue = ref(1);
-const max = ref(10);
-const min = ref(1);
+const modelValue = ref(1)
+const max = ref(10)
+const min = ref(1)
 </script>
 <template>
   <div class="xtx-goods-page">
