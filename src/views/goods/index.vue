@@ -8,6 +8,7 @@ import GoodsSales from "./components/goods-sales.vue";
 import GoodsName from "./components/goods-name.vue";
 import GoodsSku from "./components/goods-sku.vue";
 import GoodsDetail from "./components/goods-detail.vue";
+import GoodsHot from "./components/goods-hot.vue";
 const { goods } = useStore();
 const route = useRoute();
 watchEffect(() => {
@@ -88,7 +89,12 @@ const min = ref(1);
             </div>
           </div>
           <!-- 24热榜+专题推荐 -->
-          <div class="goods-aside"></div>
+          <div class="goods-aside">
+            <!-- 热销榜 -->
+            <GoodsHot :type="1" />
+            <GoodsHot :type="2" />
+            <GoodsHot :type="3" />
+          </div>
         </div>
       </div>
 
