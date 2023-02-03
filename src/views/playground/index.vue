@@ -17,7 +17,7 @@ onMounted(() => {
 <script setup lang="ts">
 import Message from "@/components/message/index"
 const hangeChan = () => {
-  Message.success("你是小栽楞", 3000)
+  Message.success("小栽楞", 3000)
 }
 </script>
 

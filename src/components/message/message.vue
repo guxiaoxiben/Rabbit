@@ -1,5 +1,5 @@
 <script lang="ts" setup name="XtxMessage">
-import { PropType } from "vue"
+import { PropType, ref, onMounted } from "vue"
 
 defineProps({
   type: {
@@ -32,16 +32,40 @@ const style = {
     borderColor: "rgb(225, 243, 216)",
   },
 }
+/**
+ * 控制 显示和隐藏
+ */
+const isShow = ref(false)
+onMounted(() => {
+  isShow.value = true
+})
 </script>
 
 <template>
-  <div class="xtx-message" :style="style[type]">
-    <i class="iconfont" :class="style[type].icon"></i>
-    <span class="text">{{ text }}</span>
-  </div>
+  <Transition name="down">
+    <div class="xtx-message" :style="style[type]" v-show="isShow">
+      <i class="iconfont" :class="style[type].icon"></i>
+      <span class="text">{{ text }}</span>
+    </div>
+  </Transition>
 </template>
 
 <style scoped lang="less">
+.down {
+  &-enter {
+    &-from {
+      transform: translate3d(0, -75px, 0);
+      opacity: 0;
+    }
+    &-active {
+      transition: all 0.5s;
+    }
+    &-to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+}
 .xtx-message {
   width: 300px;
   height: 50px;
