@@ -7,9 +7,16 @@ const useUserStore = defineStore({
     id: 'user',
     // 状态
     state() {
+        // const userInfo = JSON.parse(localStorage.getItem('userInfo') as string)
+        let userInfo: any = localStorage.getItem('userInfo')
+        if (!userInfo) {
+            userInfo = {}
+        } else {
+            userInfo = JSON.parse(userInfo)
+        }
         return {
             // 个人信息
-            profile: {} as Profile,
+            profile: userInfo as Profile,
         }
     },
     actions: {
@@ -20,7 +27,7 @@ const useUserStore = defineStore({
                 password,
             })
             this.profile = res.data.result
-            console.log(this.profile);
+            localStorage.setItem("userInfo", JSON.stringify(res.data.result))
 
         }
     }
