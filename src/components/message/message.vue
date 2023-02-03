@@ -6,6 +6,9 @@ defineProps({
     type: String as PropType<"success" | "error" | "warning">,
     default: "success",
   },
+  text: {
+    type: String,
+  },
 })
 
 // 定义一个对象，包含三种情况的样式，对象key就是类型字符串
@@ -34,7 +37,7 @@ const style = {
 <template>
   <div class="xtx-message" :style="style[type]">
     <i class="iconfont" :class="style[type].icon"></i>
-    <span class="text"><slot></slot></span>
+    <span class="text">{{ text }}</span>
   </div>
 </template>
 
