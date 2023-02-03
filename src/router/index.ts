@@ -37,8 +37,8 @@ const router = createRouter({
             component: () => import('@/views/login/index.vue')
         },
         {
-            path: '/playround',
-            component: () => import('@/views/playround/index.vue')
+            path: '/playground',
+            component: () => import('@/views/playground/index.vue')
         }
     ]
 })
