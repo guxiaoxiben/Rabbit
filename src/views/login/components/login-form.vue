@@ -48,8 +48,9 @@ const isAgree = ref(false)
       <div class="form-item">
         <div class="agree">
           <!-- 复选框 -->
-          <XtxCheckbox v-model="isAgree" />
-          <span>我已同意</span>
+          <XtxCheckbox v-model="isAgree">
+            <span>我已同意</span>
+          </XtxCheckbox>
           <a href="javascript:;">《隐私条款》</a>
           <span>和</span>
           <a href="javascript:;">《服务条款》</a>
