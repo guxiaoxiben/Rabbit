@@ -1,8 +1,46 @@
 <script lang="ts" setup name="LoginForm">
+import Message from "@/components/message"
 import { ref } from "vue"
+import { useRouter } from "vue-router"
+import userStore from "@/store"
 
 const type = ref<"account" | "mobile">("account")
-const isAgree = ref(false)
+const { user } = userStore()
+const router = useRouter()
+
+/**
+ * 表单数据
+ */
+const form = ref({
+  account: "",
+  password: "",
+  isAgree: false,
+})
+/**
+ *登录
+ */
+const login = async () => {
+  if (form.value.account === "") {
+    Message({ type: "error", text: "用户名或手机号不能为空" })
+    return
+  }
+  if (form.value.password === "") {
+    Message({ type: "error", text: "密码不能为空" })
+    return
+  }
+  if (!form.value.isAgree) {
+    Message({ type: "error", text: "请同意许可" })
+    return
+  }
+  try {
+    await user.login(form.value.account, form.value.password)
+    Message({ type: "success", text: "登录成功" })
+    // 跳转到首页
+    router.push("/")
+  } catch {
+    Message.error("用户名或者密码错误")
+  }
+}
 </script>
 <template>
   <div class="account-box">
@@ -19,14 +57,22 @@ const isAgree = ref(false)
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-user"></i>
-            <input type="text" placeholder="请输入用户名或手机号" />
+            <input
+              type="text"
+              v-model="form.account"
+              placeholder="请输入用户名或手机号"
+            />
           </div>
           <!-- <div class="error"><i class="iconfont icon-warning" />请输入手机号</div> -->
         </div>
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-lock"></i>
-            <input type="password" placeholder="请输入密码" />
+            <input
+              type="password"
+              v-model="form.password"
+              placeholder="请输入密码"
+            />
           </div>
         </div>
       </template>
@@ -48,7 +94,7 @@ const isAgree = ref(false)
       <div class="form-item">
         <div class="agree">
           <!-- 复选框 -->
-          <XtxCheckbox v-model="isAgree">
+          <XtxCheckbox v-model="form.isAgree">
             <span>我已同意</span>
           </XtxCheckbox>
           <a href="javascript:;">《隐私条款》</a>
@@ -56,7 +102,7 @@ const isAgree = ref(false)
           <a href="javascript:;">《服务条款》</a>
         </div>
       </div>
-      <a href="javascript:;" class="btn">登录</a>
+      <a href="javascript:;" class="btn" @click="login()">登录</a>
     </div>
     <div class="action">
       <img
