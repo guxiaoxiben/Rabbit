@@ -35,7 +35,24 @@ const useUserStore = defineStore({
             localStorage.removeItem('userInfo')
             this.profile = {} as Profile
             Message({ type: "success", text: "退出成功" })
-        }
+        },
+        /**获取手机验证码 */
+        async sendMobileMsg(mobile: string) {
+            await request.get('/login/code', {
+                params: {
+                    mobile
+                }
+            })
+        },
+        /**手机号登录 */
+        async mobileLogin(mobile: string, code: string) {
+            const res = await request.post<ApiRes<Profile>>('/login/code', {
+                mobile,
+                code
+            })
+            // 1. 保存用户信息到 state 中
+            this.profile = res.data.result
+        },
     }
 })
 export default useUserStore

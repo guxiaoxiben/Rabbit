@@ -1,9 +1,11 @@
 <script lang="ts" setup name="LoginForm">
 import Message from "@/components/message"
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import { useRouter } from "vue-router"
 import userStore from "@/store"
 import { useField, useForm } from "vee-validate"
+import { useIntervalFn } from "@vueuse/core"
+import { useCountDown } from "@/utils/hooks"
 
 const type = ref<"account" | "mobile">("account")
 const { user } = userStore()
@@ -19,7 +21,7 @@ const form = ref({
 })
 
 // 添加效验
-const { validate } = useForm({
+const { validate, resetForm } = useForm({
   validationSchema: {
     account(value: string) {
       if (!value) return "请输入用户名"
@@ -35,6 +37,16 @@ const { validate } = useForm({
       if (!value) return "请同意隐私条款"
       return true
     },
+    mobile: (value: string) => {
+      if (!value) return "请输入手机号"
+      if (!/^1[3-9]\d{9}$/.test(value)) return "手机号格式错误"
+      return true
+    },
+    code: (value: string) => {
+      if (!value) return "请输入验证码"
+      if (!/^\d{6}$/.test(value)) return "验证码格式错误"
+      return true
+    },
   },
 })
 const { value: account, errorMessage: accountError } =
@@ -43,7 +55,40 @@ const { value: password, errorMessage: passwordError } =
   useField<string>("password")
 const { value: isAgree, errorMessage: isAgreeError } =
   useField<boolean>("isAgree")
+const {
+  value: mobile,
+  errorMessage: mobileError,
+  validate: validateMobile,
+} = useField<string>("mobile")
+const { value: code, errorMessage: codeError } = useField<string>("code")
 
+// 监听type的变化 处理切换重置
+watch(type, () => {
+  // 重置表单
+  resetForm()
+})
+const mobileRef = ref<HTMLInputElement | null>(null)
+const { time, start } = useCountDown(60)
+/**
+ * 发送验证码
+ */
+const send = async () => {
+  if (time.value > 0) return
+  const res = await validateMobile()
+  if (!res.valid) {
+    // 校验没通过
+    mobileRef.value?.focus()
+    return
+  }
+  // console.log("发送验证码")
+  try {
+    await user.sendMobileMsg(mobile.value)
+    Message.success("获取验证码成功")
+    start()
+  } catch {
+    Message.error("获取验证码失败")
+  }
+}
 /**
  *登录
  */
@@ -104,14 +149,27 @@ const login = async () => {
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-user"></i>
-            <input type="text" placeholder="请输入手机号" />
+            <input
+              ref="mobileRef"
+              type="text"
+              v-model="mobile"
+              placeholder="请输入手机号"
+            />
+          </div>
+          <div class="error" v-if="mobileError">
+            <i class="iconfont icon-warning" />{{ mobileError }}
           </div>
         </div>
         <div class="form-item">
           <div class="input">
             <i class="iconfont icon-code"></i>
-            <input type="password" placeholder="请输入验证码" />
-            <span class="code">发送验证码</span>
+            <input type="password" v-model="code" placeholder="请输入验证码" />
+            <span class="code" @click="send">{{
+              time === 0 ? "发送验证码" : `${time}s后发送`
+            }}</span>
+          </div>
+          <div class="error" v-if="codeError">
+            <i class="iconfont icon-warning" />{{ codeError }}
           </div>
         </div>
       </template>

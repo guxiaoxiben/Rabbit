@@ -1,6 +1,6 @@
 // 自定义一些通用的compositions api
-import { useIntersectionObserver } from '@vueuse/core'
-import { ref } from 'vue'
+import { useIntersectionObserver, useIntervalFn } from '@vueuse/core'
+import { onUnmounted, ref } from 'vue'
 
 /**
  * 封装通用的数据懒加载api
@@ -26,4 +26,32 @@ export function useLazyData(apiFn: () => void) {
         }
     )
     return target
+}
+export function useCountDown(count: number = 60) {
+    const time = ref(0)
+    const { pause, resume } = useIntervalFn(
+        () => {
+            time.value--
+            if (time.value === 0) {
+                pause()
+            }
+        },
+        1000,
+        { immediate: false }
+    )
+
+    // 组件销毁时清除定时器
+    onUnmounted(() => {
+        pause()
+    })
+
+    const start = () => {
+        time.value = count
+        resume()
+    }
+
+    return {
+        time,
+        start
+    }
 }

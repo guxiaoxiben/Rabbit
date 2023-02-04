@@ -1,3 +1,4 @@
+import Message from '@/components/message'
 import axios from 'axios'
 
 // 备用接口地址: http://pcapi-xiaotuxian-front-devtest.itheima.net/
@@ -25,6 +26,11 @@ instance.interceptors.response.use(
     },
     function (error) {
         // 对响应错误做点什么
+        if (!error.response) {
+            Message.error('网络异常，请稍后重置')
+        } else {
+            Message.error(error.response.data.message)
+        }
         return Promise.reject(error)
     }
 )
