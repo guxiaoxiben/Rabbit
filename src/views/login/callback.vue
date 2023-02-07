@@ -4,7 +4,25 @@ import LoginFooter from "./components/login-footer.vue"
 import CallbackBind from "./components/callback-bind.vue"
 import CallbackPatch from "./components/callback-patch.vue"
 import { ref } from "vue"
+import useStore from "@/store"
+import router from "@/router"
+import Message from "@/components/message"
+
+const { user } = useStore()
+//获取用户信息
 const hasAccount = ref(true)
+const isLogin = QC.Login.check()
+if (isLogin) {
+  // 获取opneId
+  QC.Login.getMe((openId) => {
+    console.log(openId)
+    QC.Login.getMe(async (openId) => {
+      await user.qqLogin(openId)
+      Message.success("登录成功")
+      router.push("/")
+    })
+  })
+}
 </script>
 
 <template>

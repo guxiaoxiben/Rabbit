@@ -35,11 +35,6 @@ const useUserStore = defineStore({
             this.profile = res.data.result
             setProfile(res.data.result)
         },
-        /**退出 */
-        logout() {
-            this.profile = {} as Profile
-            removeProfile()
-        },
         /**获取手机验证码 */
         async sendMobileMsg(mobile: string) {
             await request.get('/login/code', {
@@ -57,6 +52,21 @@ const useUserStore = defineStore({
             // 1. 保存用户信息到 state 中
             this.profile = res.data.result
             setProfile(res.data.result)
+        },
+        /**QQ密码登录 */
+        async qqLogin(openId: string) {
+            const res = await request.post<ApiRes<Profile>>('/login/social', {
+                unionId: openId,
+                source: 6
+            })
+            // 1. 保存用户信息到 state 中
+            this.profile = res.data.result
+            setProfile(res.data.result)
+        },
+        /**退出 */
+        logout() {
+            this.profile = {} as Profile
+            removeProfile()
         },
     }
 })
