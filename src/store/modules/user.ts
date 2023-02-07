@@ -3,22 +3,27 @@ import { ApiRes } from '@/types/data'
 import { Profile } from '@/types/user'
 import request from '@/utils/request'
 import Message from '@/components/message'
+import { getProfile, removeProfile, setProfile } from '@/utils/storage'
+
 
 const useUserStore = defineStore({
     id: 'user',
     // 状态
     state() {
-        // const userInfo = JSON.parse(localStorage.getItem('userInfo') as string)
-        let userInfo: any = localStorage.getItem('userInfo')
-        if (!userInfo) {
-            userInfo = {}
-        } else {
-            userInfo = JSON.parse(userInfo)
-        }
         return {
-            // 个人信息
-            profile: userInfo as Profile,
+            profile: getProfile()
         }
+        // const userInfo = JSON.parse(localStorage.getItem('userInfo') as string)
+        // let userInfo: any = getProfile()
+        // if (!userInfo) {
+        //     userInfo = {}
+        // } else {
+        //     userInfo = JSON.parse(userInfo)
+        // }
+        // return {
+        //     // 个人信息
+        //     profile: userInfo as Profile,
+        // }
     },
     actions: {
         /**用户名和密码登录 */
@@ -28,13 +33,12 @@ const useUserStore = defineStore({
                 password,
             })
             this.profile = res.data.result
-            localStorage.setItem("userInfo", JSON.stringify(res.data.result))
+            setProfile(res.data.result)
         },
         /**退出 */
         logout() {
-            localStorage.removeItem('userInfo')
             this.profile = {} as Profile
-            Message({ type: "success", text: "退出成功" })
+            removeProfile()
         },
         /**获取手机验证码 */
         async sendMobileMsg(mobile: string) {
@@ -52,6 +56,7 @@ const useUserStore = defineStore({
             })
             // 1. 保存用户信息到 state 中
             this.profile = res.data.result
+            setProfile(res.data.result)
         },
     }
 })

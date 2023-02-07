@@ -22,6 +22,15 @@ const form = ref({
 
 // 添加效验
 const { validate, resetForm } = useForm({
+  // 设置初始值
+  initialValues: {
+    mobile: "13666666666",
+    code: "123456",
+    account: "xiaotuxian001",
+    password: "123456",
+    isAgree: true,
+  },
+  // 设置效验
   validationSchema: {
     account(value: string) {
       if (!value) return "请输入用户名"
@@ -96,14 +105,16 @@ const login = async () => {
   // 效验整个表单信息
   const res = await validate()
   if (!res.valid) return
-  try {
-    await user.login(form.value.account, form.value.password)
-    Message({ type: "success", text: "登录成功" })
-    // 跳转到首页
-    router.push("/")
-  } catch {
-    Message.error("用户名或者密码错误")
+  if (type.value === "account") {
+    if (res.errors.account || res.errors.password || res.errors.isAgree) return
+    await user.login(account.value, password.value)
+  } else {
+    if (res.errors.mobile || res.errors.code || res.errors.isAgree) return
+    await user.mobileLogin(mobile.value, code.value)
+    Message.success("登录成功")
   }
+  // 跳转到首页
+  router.push("/")
 }
 </script>
 <template>
