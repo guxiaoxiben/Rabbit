@@ -63,7 +63,7 @@ const useUserStore = defineStore({
             this.profile = res.data.result
             setProfile(res.data.result)
         },
-        /**绑定QQ的短信验证码 */
+        /**绑定QQ的短信验证码[有账号|未绑定] */
         async sendQQBindMsg(mobile: string) {
             await request.get('/login/social/code', {
                 params: {
@@ -71,13 +71,31 @@ const useUserStore = defineStore({
                 }
             })
         },
-        /**提供绑定的actions */
+        /**提供绑定的actions[有账号|未绑定] */
         async qqBindLogin(openId: string, mobile: string, code: string) {
             const res = await request.post<ApiRes<Profile>>('/login/social/bind', {
                 mobile,
                 code,
                 unionId: openId
             })
+            // 1. 保存用户信息到 state 中
+            this.profile = res.data.result
+            setProfile(res.data.result)
+        },
+        /**绑定QQ的短信验证码[无账号|未绑定] */
+        async sendQQPathMsg(mobile: string) {
+            await request.get('/register/code', {
+                params: {
+                    mobile
+                }
+            })
+        },
+        /**提供绑定的actions[无账号|未绑定] */
+        async qqPatchLogin(data: any) {
+            const res = await request.post<ApiRes<Profile>>(
+                `/login/social/${data.openId}/complement`,
+                data
+            )
             // 1. 保存用户信息到 state 中
             this.profile = res.data.result
             setProfile(res.data.result)
