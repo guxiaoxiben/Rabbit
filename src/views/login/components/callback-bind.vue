@@ -1,12 +1,23 @@
-<script name="CallbackBind" lang="ts" setup></script>
+<script name="CallbackBind" lang="ts" setup>
+import { QQUserInfo, QQUserInfoRes } from "@/types/user"
+import { ref } from "vue"
+const qqInfo = ref<QQUserInfo>({} as QQUserInfo)
+
+// 判断QQ是否登录
+if (QC.Login.check()) {
+  QC.api("get_user_info").success((res: QQUserInfoRes) => {
+    console.log(res)
+    qqInfo.value = res.data
+  })
+}
+</script>
 <template>
   <div class="xtx-form">
     <div class="user-info">
-      <img
-        src="http://qzapp.qlogo.cn/qzapp/101941968/57C7969540F9D3532451374AA127EE5B/50"
-        alt=""
-      />
-      <p>Hi，Tom 欢迎来小兔鲜，完成绑定后可以QQ账号一键登录哦~</p>
+      <img :src="qqInfo.figureurl_2" alt="" />
+      <p>
+        Hi, {{ qqInfo.nickname }} 欢迎来小兔鲜，完成绑定后可以QQ账号一键登录哦~
+      </p>
     </div>
     <div class="xtx-form-item">
       <div class="field">
