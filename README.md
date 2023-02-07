@@ -1,18 +1,33 @@
-# Vue 3 + TypeScript + Vite
+# 小兔鲜电商
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+1.yarn 或者 npm i
 
-## Recommended IDE Setup
+2.运行前需要 修改 本地电脑 host 文件 
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- windows 系统
 
-## Type Support For `.vue` Imports in TS
+提醒：修改电脑配置，需要先退出 360 或 各种管家 各种 杀毒软件
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+提醒：如果修改 hosts 文件有弹窗警告，点击信任（因为这是我们自己进行的安全操作）
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+```
+1. 找到 C:\Windows\System32\drivers\etc 下hosts文件
+2. 在文件中加入  127.0.0.1       www.corho.com
+3. 保存即可
+# 如果提示没有权限
+1. 将hosts文件移到桌面，然后进行修改，确认保存。
+2. 将桌面hosts文件替换c盘文件
+```
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- mac OS 系统
+
+```
+1. 打开命令行窗口
+2. 输入：sudo vim /etc/hosts
+3. 按下：i 键    						 (进入编辑状态 => 利用光标挪位置)
+4. 输入：127.0.0.1       www.corho.com     (改完如何保存? 看下一步)
+5. 按下：esc
+6. 按下：shift + :
+7. 输入：wq 回车即可
+```
+

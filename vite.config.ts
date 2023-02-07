@@ -9,6 +9,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
+  // 配置开发服务器
+  server: {
+    host: "www.corho.com", //主机地址
+    port: 8080, // 端口号
+    open: true, //打开浏览器
+    cors: true //允许ajax跨域
+  },
   css: {
     preprocessorOptions: {
       less: {
